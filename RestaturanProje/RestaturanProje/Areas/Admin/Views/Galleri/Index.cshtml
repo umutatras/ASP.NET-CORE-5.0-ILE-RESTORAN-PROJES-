@@ -1,0 +1,43 @@
+﻿@model IEnumerable<RestaturanProje.Models.Gallery>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Galeri Ekle</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+               Resim
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+
+
+<tr>
+            <td>
+                @if(item.Image==null){ 
+                <img src="~/pato-master/images/resim-yok.jpg"  height="100" width="100"/>
+                }
+                else
+                {
+            <img src="@item.Image" height="100" width="100" />
+                }
+            </td>
+            <td>
+               
+                <a asp-action="Delete" asp-route-id="@item.Id">Sil</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

@@ -1,0 +1,92 @@
+﻿@model IEnumerable<RestaturanProje.Models.Blog>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<p>
+    <a asp-action="Create">Yorum Ekle </a>
+</p>
+<table class="table" id="myTable">
+    <thead>
+        <tr>
+            <th>
+                Başlık
+            </th>
+            <th>
+                Ad
+            </th>
+            <th>
+                Mail
+            </th>
+            <th>
+                Resim
+            </th>
+            <th>
+                Onay
+            </th>
+            <th>
+                Mesaj
+            </th>
+            <th>
+                Tarih
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @if (item.Image != null)
+                    {
+                        <img src="@item.Image" width="85" height="85" />}
+                    else
+                    {
+                        <img src="~/pato-master/images/resim-yok.jpg" width="85" height="85" />
+                    }
+
+                </td>
+               
+                <td>
+                    @Html.DisplayFor(modelItem => item.Email)
+                </td>
+              
+                
+                <td>
+                    @if (item.Status)
+                    {
+                        <button class="btn btn-success btn-sm"><i class="bi bi-check-circle"></i> Evet</button>
+                    }
+                    else
+                    {
+                        <button class="btn btn-danger btn-sm"><i class="bi bi-x-octagon"></i> Hayır</button>
+                    }
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Message)
+                </td>
+             
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.Id">Onayla</a> 
+
+                    <a asp-action="Delete" asp-route-id="@item.Id">Sil</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+@section Scripts{
+    <script type="text/javascript">
+    $(document).ready(function () {
+        $('#myTable').DataTable({
+            language: {
+                "url": "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/Turkish.json",
+            },
+        });
+    });
+    </script>
+}
